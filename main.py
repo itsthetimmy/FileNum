@@ -1,44 +1,39 @@
-import tkinter as tk
-from tkinter import ttk, filedialog, messagebox
-from tkinter.scrolledtext import ScrolledText
-import os, sys
-from pathlib import Path
+import mutagen.id3._tags
+import os
 
-class Public(): pass
 
-class App():
-    def __init__(self, master):
-        super().__init__()
-        self.CreateUI(master)
+artist=0    #sort after artist
+title=1     #sort after title
+a_z=1       #sort from a to z
+z_a=0       #sort from z to a
+
     
-    def CreateUI(self, master):
-        self.selectB = ttk.Button(master, text="...", command=lambda: commingsoon())
-        self.selectB.config(width=3)
-        self.selectB.pack(padx=50,pady=50)
-        self.downloadB = ttk.Button(master, text="Ausführen", command=lambda: self.num(master))
-        self.downloadB.config(width=20)
-        self.downloadB.pack(padx=50,pady=50)
+def askSort():
+    print("Want to Sort after Artist? (y/n) ")
+    answer = input()
+    if(answer=="y"):
+        artist  = 1
+        title   = 0
+    else:
+        print("It will be sorted by title")
+        artist  = 0
+        title   = 1
+    while 1:
+        print("Do you want to sort from A to Z or from Z to A?\nPress (1) for A-Z\nPress (2) for Z-A")
+        answer = input()
+        if answer == "1":
+            a_z = 1
+            z_a = 0
+            break;
+        elif answer == "2":
+            a_z = 0
+            z_a = 1
+            break;
 
-    def num(self,master):
-        
-
-    def GetSaveDir(self):
-        self.osname = sys.platform
-        self.location = filedialog.askdirectory()
-        self.location=(str(Path(self.location)))
-        self.getLocE.delete(0, "end")
-        self.getLocE.insert(0, self.location)
-
-def Start():
-    root = tk.Tk()
-    root.title("Datei Nummerierer")
-    root.resizable(0,0)
-    App(root)
-    root.mainloop()
-
-def commingsoon():
-    tk.messagebox.showinfo("","Wurde noch nicht implementiert!")
+def selectionsort():
+    
 
 
-if __name__ == "__main__":
-    Start()
+
+print("Information: Move this Script to the Location where your Music Files are saved.")
+askSort()
