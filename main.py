@@ -1,13 +1,13 @@
-import mutagen.id3._tags
+import eyed3
 import os
 
 
 artist=0    #sort after artist
 title=1     #sort after title
-a_z=1       #sort from a to z
-z_a=0       #sort from z to a
+RevOrder=False       #sort from a to z
 
-    
+
+
 def askSort():
     print("Want to Sort after Artist? (y/n) ")
     answer = input()
@@ -21,19 +21,25 @@ def askSort():
     while 1:
         print("Do you want to sort from A to Z or from Z to A?\nPress (1) for A-Z\nPress (2) for Z-A")
         answer = input()
-        if answer == "1":
-            a_z = 1
-            z_a = 0
+        if answer == "1":   #sort Alphabetical Order
+            RevOrder = False
             break;
-        elif answer == "2":
-            a_z = 0
-            z_a = 1
+        elif answer == "2": #sort reverse Alphabetical Order
+            RevOrder = True
             break;
 
-def selectionsort():
-    
+path = "/home/itsthetimmy/Musik"
+count=0
+print("Information befor running: Move this Script to the Location where your Music Files are saved.")
+#askSort()
+os.chdir(path)
+filelist = os.listdir()
+print(str(filelist) + "\nUNSortiert")
+filelist.sort(reverse=RevOrder)
 
-
-
-print("Information: Move this Script to the Location where your Music Files are saved.")
-askSort()
+for x in filelist:
+    count=count+1
+    os.rename(x, str(count) + " - " + str(x))
+count=0
+filelist = os.listdir()
+print(str(filelist) + "\nSortiert")
